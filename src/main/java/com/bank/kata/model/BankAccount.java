@@ -2,6 +2,7 @@ package com.bank.kata.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,14 +17,14 @@ public class BankAccount {
     // Deposits the given amount into the account.
     public void deposit(BigDecimal amount){
         balance = balance.add(amount) ; 
-        transactions.add(new Transaction(LocalDate.now(), amount, balance));
+        transactions.add(new Transaction(OperationType.DEPOSIT,LocalDateTime.now(), amount, balance));
     }
 
     //  Withdraws the specified amount from the account.
     public void withdraw(BigDecimal amount) {
         if (amount.compareTo(balance) > 0) throw new IllegalArgumentException("Insufficient funds");
         balance = balance.subtract(amount) ;
-        transactions.add(new Transaction(LocalDate.now(), amount.negate(), balance));
+        transactions.add(new Transaction(OperationType.WITHDRAWAL ,LocalDateTime.now(), amount.negate(), balance));
     }
 
     //Returns an immutable list of all transactions.
