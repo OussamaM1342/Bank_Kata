@@ -2,12 +2,18 @@ package com.bank.kata;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.math.BigDecimal;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.bank.kata.model.BankAccount;
+
 @SpringBootTest
 class KataApplicationTests {
+
+	private BankAccount account;  
 
 	@BeforeEach
 	void setUp(){
@@ -20,8 +26,8 @@ class KataApplicationTests {
 	// Then the balance should be updated
 	@Test
 	void deposit_adds_to_balance(){
-		account.deposit(1000);
-		assertEquals(1000, account.getTransactions().get(0).balance());
+		account.deposit(new BigDecimal("1000"));
+		assertEquals(new BigDecimal("1000"), account.getTransactions().get(0).balance());
 	}
 
 	// Given a bank account
@@ -29,9 +35,9 @@ class KataApplicationTests {
 	// Then the transaction should be recorded
 	@Test
 	void deposit_records_transaction(){
-		account.deposit(1000); 
+		account.deposit(new BigDecimal("1000")); 
 		assertEquals(1, account.getTransactions().size());
-		assertEquals(1000, account.getTransactions().get(0).amount());
+		assertEquals(new BigDecimal("1000"), account.getTransactions().get(0).amount());
 
 	}
 }
