@@ -45,8 +45,8 @@ class KataApplicationTests {
 	@Test
     void withdrawal_update_balance() {
 		account.deposit(new BigDecimal("1000")); 
-        account.withdraw(300);
-        assertEquals(700, account.getTransactions().get(1).balance());
+        account.withdraw(new BigDecimal("300"));
+        assertEquals(new BigDecimal("700") , account.getTransactions().get(1).balance());
     }
 
 	// Given a bank account with a balance of 1000
@@ -55,14 +55,14 @@ class KataApplicationTests {
     @Test
     void withdrawal_records_negative_amount() {
 		account.deposit(new BigDecimal("1000")); 
-        account.withdraw(300);
-        assertEquals(-300, account.getTransactions().get(1).amount());
+        account.withdraw(new BigDecimal("300"));
+        assertEquals(new BigDecimal("-300") , account.getTransactions().get(1).amount());
     }
 
 	//Tests that a withdrawal with insufficient funds throws an exception.
 	@Test
     void withdrawal_with_insufficient_funds_throws_exception() {
 		account.deposit(new BigDecimal("500")); 
-        assertThrows(IllegalArgumentException.class, () -> account.withdraw(1000));
+        assertThrows(IllegalArgumentException.class, () -> account.withdraw(new BigDecimal(1000) ));
     }
 }
