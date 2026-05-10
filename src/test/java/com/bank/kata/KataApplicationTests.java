@@ -65,4 +65,21 @@ class KataApplicationTests {
 		account.deposit(new BigDecimal("500")); 
         assertThrows(IllegalArgumentException.class, () -> account.withdraw(new BigDecimal(1000) ));
     }
+
+	//Tests that the account statement contains all recorded transactions.
+	@Test
+    void statement_contains_all_transactions() {
+        account.deposit(new BigDecimal("1000"));
+        account.withdraw(new BigDecimal(300));
+        account.deposit(new BigDecimal("500"));
+        assertEquals(3, account.getTransactions().size());
+    }
+
+	// Tests that the transaction list returned by the account is immutable
+    @Test
+    void statement_is_immutable() {
+        account.deposit(new BigDecimal("1000"));
+        assertThrows(UnsupportedOperationException.class,
+                () -> account.getTransactions().clear());
+    }
 }
